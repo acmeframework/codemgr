@@ -13,14 +13,19 @@ export const SCRIPT_PATH: Readonly<string> = path.resolve(__dirname, '..');
 const DEFAULT_COMMAND_TIMEOUT: Readonly<number> = 120000;
 
 export async function executeCommandWithOutput(
-  command: string,
+  file: string,
+  cmdArguments: string[] = [],
   workingPath = CURRENT_PATH,
   timeout = DEFAULT_COMMAND_TIMEOUT
 ): Promise<string> {
-  const output: execa.ExecaReturnValue = await execa.command(command, {
-    localDir: workingPath,
-    timeout: timeout,
-  });
+  const output: execa.ExecaReturnValue = await execa.default(
+    file,
+    cmdArguments,
+    {
+      localDir: workingPath,
+      timeout: timeout,
+    }
+  );
   showOutput({
     message: `Command Result: \n${output}`,
     severity: LogSeverity.Debug,
@@ -29,12 +34,13 @@ export async function executeCommandWithOutput(
 }
 
 export async function executeCommand(
-  command: string,
+  file: string,
+  cmdArguments: string[] = [],
   workingPath?: string,
   timeout?: number
 ): Promise<boolean> {
   try {
-    await executeCommandWithOutput(command, workingPath, timeout);
+    await executeCommandWithOutput(file, cmdArguments, workingPath, timeout);
     return true;
   } catch (err) {
     showOutput({ message: `ERROR\n${err}`, severity: LogSeverity.Error });
