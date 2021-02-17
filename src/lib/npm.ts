@@ -6,12 +6,14 @@ import { executeCommand, executeCommandWithOutput } from './proc-utils';
 const NPM_PACKAGE_JSON_FILENAME = 'package.json';
 const NPM_COMMAND = 'npm';
 
-export async function executeNpmCommand(command: string): Promise<boolean> {
-  return await executeCommand(`${NPM_COMMAND} ${command}`);
+export async function executeNpmCommand(
+  cmdArguments: string[]
+): Promise<boolean> {
+  return await executeCommand(NPM_COMMAND, cmdArguments);
 }
 
 export async function initNpm(): Promise<boolean> {
-  return await executeNpmCommand('init -y');
+  return await executeNpmCommand(['init', '-y']);
 }
 
 export async function isNpmInitialized(): Promise<boolean> {
@@ -22,8 +24,7 @@ export async function setNpmConfig(
   configKey: string,
   configValue: string
 ): Promise<boolean> {
-  const safeValue = configValue.replace(/ /g, '\\ ');
-  return await executeNpmCommand(`set ${configKey}=${safeValue}`);
+  return await executeNpmCommand(['set', `${configKey}=${configValue}`]);
 }
 
 // Define our internal package list types
@@ -80,9 +81,11 @@ export async function readNpmPackageInfo(
 }
 
 export async function loadNpmConfiguration(): Promise<NpmConfig> {
-  const output = await executeCommandWithOutput(
-    `${NPM_COMMAND} config list --json`
-  );
+  const output = await executeCommandWithOutput(NPM_COMMAND, [
+    'config',
+    'list',
+    '--json',
+  ]);
   const npmConfig: NpmConfig = JSON.parse(output);
   return npmConfig;
 }
@@ -193,11 +196,13 @@ export async function npmPackageInstaller(
 ): Promise<boolean> {
   if (packageList.length === 0) return Promise.resolve(true);
 
-  const installList = packageList.join(' ');
-  const execCommand = `install ${PACKAGE_INSTALLATION_INFO[installType]} ${installList}`;
+  const cmdArguments: string[] = [
+    'install',
+    `${PACKAGE_INSTALLATION_INFO[installType]}`,
+  ].concat(packageList);
   showOutput({
-    message: `NPM Install Command: ${execCommand}`,
+    message: `NPM Install Command: ${cmdArguments.join(' ')}`,
     severity: LogSeverity.Debug,
   });
-  return await executeNpmCommand(execCommand);
+  return await executeNpmCommand(cmdArguments);
 }

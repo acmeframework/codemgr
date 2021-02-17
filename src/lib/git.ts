@@ -4,12 +4,14 @@ import { executeCommand } from './proc-utils';
 const GIT_COMMAND = 'git';
 const GIT_DIR = '.git';
 
-export async function executeGitCommand(command: string): Promise<boolean> {
-  return Promise.resolve(executeCommand(`${GIT_COMMAND} ${command}`));
+export async function executeGitCommand(
+  cmdArguments: string[]
+): Promise<boolean> {
+  return Promise.resolve(executeCommand(GIT_COMMAND, cmdArguments));
 }
 
 export async function initGit(): Promise<boolean> {
-  return Promise.resolve(await executeGitCommand('init'));
+  return Promise.resolve(await executeGitCommand(['init']));
 }
 
 export async function isGitInitialized(): Promise<boolean> {

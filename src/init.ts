@@ -160,11 +160,13 @@ export async function init(): Promise<void> {
         )
       ) {
         if (!npmPackageInfo.isScriptPresent(script)) {
-          const scriptCode = appConfig.templateConfig.scripts[script].replace(
-            / /g,
-            '\\ '
-          );
-          if (await executeNpmCommand(`set-script ${script} ${scriptCode}`)) {
+          if (
+            executeNpmCommand([
+              'set-script',
+              script,
+              appConfig.templateConfig.scripts[script],
+            ])
+          ) {
             showOutput(`${script} added to NPM package.json`);
           } else {
             showOutput({
