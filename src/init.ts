@@ -161,7 +161,7 @@ export async function init(): Promise<void> {
       ) {
         if (!npmPackageInfo.isScriptPresent(script)) {
           if (
-            executeNpmCommand([
+            await executeNpmCommand([
               'set-script',
               script,
               appConfig.templateConfig.scripts[script],
