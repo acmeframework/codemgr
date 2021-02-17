@@ -1,0 +1,7 @@
+.nyc_output
+.vscode
+build
+node_modules
+reports
+
+package-lock.json

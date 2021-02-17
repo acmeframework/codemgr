@@ -1,0 +1,35 @@
+{
+  "checks": {
+    "gitInit": true,
+    "npmInit": true,
+    "requiredPackages": true,
+    "scripts": true,
+    "templateFiles": true
+  },
+  "requiredPackages": {
+    "dependencies": ["tslib"],
+    "devDependencies": [
+      "typescript",
+      "@types/node",
+      "@typescript-eslint/eslint-plugin",
+      "@typescript-eslint/parser",
+      "eslint",
+      "eslint-config-prettier",
+      "eslint-plugin-prettier",
+      "prettier",
+      "rimraf"
+    ]
+  },
+  "scripts": {
+    "build": "npm run compile",
+    "clean:build": "npx rimraf ./build/",
+    "clean:all": "npm run clean:build",
+    "compile": "npx tsc",
+    "cli": "node build/cli.js",
+    "fix": "npx eslint --fix '**/*.ts'",
+    "format": "npx prettier --write .",
+    "lint": "npx eslint '**/*.ts'",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile"
+  }
+}

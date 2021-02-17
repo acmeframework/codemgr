@@ -1,0 +1,7 @@
+# Dev environment
+.vscode
+node_modules
+.eslintrc.js
+
+# CI/CD
+build

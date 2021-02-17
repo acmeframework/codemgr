@@ -1,0 +1,57 @@
+{
+  "name": "codemgr",
+  "version": "0.1.0",
+  "description": "A tool to drive a consistent development environment",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acmeframework/codemgr"
+  },
+  "bugs": {
+    "url": "https://github.com/acmeframework/codemgr/issues"
+  },
+  "homepage": "https://github.com/acmeframework/codemgr",
+  "main": "build/index.js",
+  "bin": {
+    "codemgr": "build/cli.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "npm run compile",
+    "clean:build": "npx rimraf ./build/",
+    "clean:all": "npm run clean:build",
+    "compile": "npx tsc",
+    "cli": "node build/cli.js",
+    "fix": "npx eslint --fix '**/*.ts'",
+    "format": "npx prettier --write .",
+    "lint": "npx eslint '**/*.ts'",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Coakley <mcoakley@acmeframework.com>",
+  "license": "MIT",
+  "dependencies": {
+    "af-conditionals": "^1.2.0",
+    "af-utilities": "^1.2.5",
+    "execa": "^5.0.0",
+    "inquirer": "^7.3.3",
+    "rimraf": "^3.0.2",
+    "tslib": "^2.1.0",
+    "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^7.3.1",
+    "@types/node": "^14.14.25",
+    "@types/yargs": "^16.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.3"
+  },
+  "keywords": []
+}

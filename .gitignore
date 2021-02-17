@@ -1,0 +1,6 @@
+# Dev environment
+.vscode
+node_modules
+
+# CI/CD
+build

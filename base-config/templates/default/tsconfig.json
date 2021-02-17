@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "declaration": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "outDir": "./build/",
+    "rootDir": "./src",
+
+    "downlevelIteration": true,
+    "importHelpers": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
