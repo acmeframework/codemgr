@@ -164,7 +164,7 @@ export async function init(): Promise<void> {
             / /g,
             '\\ '
           );
-          if (executeNpmCommand(`set-script ${script} ${scriptCode}`)) {
+          if (await executeNpmCommand(`set-script ${script} ${scriptCode}`)) {
             showOutput(`${script} added to NPM package.json`);
           } else {
             showOutput({
